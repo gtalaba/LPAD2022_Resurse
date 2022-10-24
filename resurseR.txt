@@ -1,0 +1,3 @@
+https://www.datacamp.com/courses/free-introduction-to-r
+https://education.rstudio.com/learn/beginner/
+https://github.com/marinfotache/Data-Processing-Analysis-Science-with-R
