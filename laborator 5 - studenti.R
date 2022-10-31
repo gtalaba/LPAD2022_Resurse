@@ -1,4 +1,4 @@
-install.packages("lubridate")
+#install.packages("lubridate")
 library(lubridate)
 #https://r4ds.had.co.nz/dates-and-times.html
 #https://blog.rsquaredacademy.com/handling-date-and-time-in-r/
@@ -9,7 +9,7 @@ test
 test <- today()
 test
 ymd(test)
-test <- ymd("2020-10-30")
+test <- ymd("2022-10-10")
 test
 
 mdy("November 2nd, 2020")
@@ -61,8 +61,9 @@ x[-c(1,4)]
 a <- matrix(1:9, nrow = 3)
 colnames(a) <- c("A", "B", "C")
 
-
+a
 a[1,]
+a[,1]
 a[1,3]
 a[,2:3]
 a[-1,]
@@ -84,7 +85,8 @@ df[df$x == 2,]
 
 
 # install.packages("RPostgres")
-library(DBI)
+library(RPostgres)
+
 
 # On Windows systems, PostgreSQL database service must already be started
 con <- dbConnect(RPostgres::Postgres(),dbname = 'lab2023', 
@@ -123,10 +125,7 @@ rez <- dbSendQuery(con, "select country_code,
 dbFetch(rez)
 library(tidyverse)
 
-covid_data %>%
-  filter(country_code == 'ROU') %>%
-  select(country_code,report_date,tests,confirmed) %>%
-  arrange(desc(report_date))
+
 
 
 
@@ -144,7 +143,7 @@ rm(list = ls())
 
 library(tidyverse)
 library(lubridate)
-setwd('e:/##FEAA/2023')
+setwd('e:/###FEAA/2023')
 
 getwd()
 
@@ -156,12 +155,18 @@ getwd()
 # MUTATE TRANSMUTE
 #UNGROUP
 
+covid_data %>%
+  filter(country_code == 'ROU') %>%
+  select(country_code,report_date,tests,confirmed) %>%
+  arrange(desc(report_date))
+
+
 ###############################################################
 ###                    Incarcarea datelor
 ###############################################################
 
 load('covid_2022-09-25.RData')
-glimpse(covid)
+glimpse(covid_data)
 glimpse(country__other_data)
 glimpse(country_gen_info)
 
@@ -188,8 +193,9 @@ rez %>%
 # ORDER BY report_date ;
 
 rezultat <- covid_data %>%
-  filter (country_code == 'ROU') %>%
-  arrange(report_date)
+  arrange(report_date) %>%
+  filter (country_code == 'ROU') 
+ 
 
 
 
@@ -199,7 +205,7 @@ rezultat <- covid_data %>%
 glimpse(country_gen_info)
 glimpse(country__pop_coord)
 rezultat <- country_gen_info %>%
-  inner_join(country__pop_coord, by = c('country_code' = 'country_code3')) %>%
+  inner_join(country__pop_coord, by = c('country_code' = 'country_code')) %>%
   filter (population == max(population)) %>%
   select  (country_code:population)
 
